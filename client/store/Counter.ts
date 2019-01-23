@@ -44,5 +44,5 @@ export const reducer: Reducer<CounterState, KnownAction> = (state: CounterState 
 
     // For unrecognized actions (or in cases where actions have no effect), must return the existing state
     //  (or default initial state if none was supplied)
-    return state || { count: 0 };
+    return state || { count: 5 };
 };

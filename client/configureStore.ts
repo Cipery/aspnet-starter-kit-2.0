@@ -4,6 +4,7 @@ import { routerReducer, routerMiddleware } from 'react-router-redux';
 import * as StoreModule from './store';
 import { ApplicationState, reducers } from './store';
 import { History } from 'history';
+import promiseMiddleware from 'redux-promise-middleware';
 
 export default function configureStore(history: History, initialState?: ApplicationState) {
     // Build middleware. These are functions that can process the actions before they reach the store.
@@ -12,6 +13,7 @@ export default function configureStore(history: History, initialState?: Applicat
     const devToolsExtension = windowIfDefined && windowIfDefined.__REDUX_DEVTOOLS_EXTENSION__ as () => StoreEnhancer;
     const createStoreWithMiddleware = compose<StoreEnhancerStoreCreator<any>>(
         applyMiddleware(thunk, routerMiddleware(history)),
+        applyMiddleware(promiseMiddleware()),
         devToolsExtension ? devToolsExtension() : <S>(next: StoreEnhancerStoreCreator<S>) => next
     )(createStore);
 
